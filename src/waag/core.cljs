@@ -4,17 +4,10 @@
 
             [waag.homepage :as homepage]
             [waag.mycards :as mycards]
-            [waag.mycard :as mycard]))
+            [waag.mycard :as mycard]
+            [waag.newcard :as newcard]))
 
 (enable-console-print!)
-
-;;app state
-
-
-;;homepage
-(def homepage (mth/mcomp
-    (fn [vnode]
-      (mth/m ".homepage" "homepage"))))
 
 ;;app
 (def app (mth/mcomp
@@ -24,10 +17,8 @@
                           :login "login"
                           :mycards mycards/main
                           :mycard mycard/main
+                          :newcard newcard/main
                           :shop "shop"
                           :settings "settings")))))
-
-
-
 
 (mth/mount (js/document.getElementById "app") app)

@@ -1,7 +1,7 @@
 (ns waag.state)
 
 ;;routing
-(def page (atom [:home]))
+(def page (atom [:newcard 0]))
 (defn gotoPage [& args]
   (swap! page (fn [old] args))
 )
@@ -10,14 +10,25 @@
   (rest (deref page))
 )
 
+;;newcard
+(def newcard (atom {:name ""
+                    :category "health"
+                    :score 10}))
+
+(defn setNewName [name]
+  (swap! newcard (fn [old] (assoc old :name name))))
+
+(defn getNewCard [key]
+  ((deref newcard) key))
+
 ;;cards
 (def mycards (atom [
                    {:name "The amount of time I have"
-                    :category "mood"
+                    :category "humeur"
                     :score 5
                     :id 0}
                    {:name "The amount of headache I have"
-                    :category "mood"
+                    :category ""
                     :score 5
                     :id 1}
                    {:name "The amount of plants I have"
@@ -35,3 +46,6 @@
 (defn getCardById [id]
   (first (filter (fn [c] (= (c :id) id))
                  (deref mycards))))
+
+;;categories
+(def categories (atom ["Humeur" "Team & Sociaal" "Voldoening" "Gezondheid" "Omgeving" "Organizatie"]))
